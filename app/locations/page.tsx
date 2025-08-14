@@ -1,9 +1,11 @@
-import {PageWrapper} from 'components/PageWrapper/PageWrapper';
-import {Card} from 'components/Card/Card';
-import {getLayout} from 'components/Layout/BaseLayout/BaseLayout';
+'use client'
+
+import {PageWrapper} from '../../components/PageWrapper/PageWrapper';
+import {Card} from '../../components/Card/Card';
+import {getLayout} from '../../components/Layout/BaseLayout/BaseLayout';
 import {useEffect, useState} from 'react';
-import {API} from 'assets/api/api';
-import {LocationType} from 'assets/api/rick-and-morty-api';
+import {API} from '../../assets/api/api';
+import {LocationType} from '../../assets/api/rick-and-morty-api';
 import {Nullable} from '@/types/Nullable';
 
 const Locations = () => {
@@ -26,5 +28,4 @@ const Locations = () => {
     )
 }
 
-Locations.getLayout = getLayout
 export default Locations
