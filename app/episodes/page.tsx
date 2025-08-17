@@ -5,26 +5,22 @@ import {Card} from '../../components/Card/Card';
 import {getLayout} from '../../components/Layout/BaseLayout/BaseLayout';
 import {GetServerSideProps} from 'next';
 import * as process from "node:process";
+import {notFound} from "next/navigation";
 
-// export const getServerSideProps: GetServerSideProps = async ({res}) => {
-//     const episodes = await API.rickAndMorty.getEpisodes()
-//
-//     if (!episodes) {
-//         return { notFound: true }
-//     }
-//
-//     return {
-//         props: { episodes }
-//     }
-// }
 
 const getEpisodes = async (): Promise<ResponseType<EpisodeType>> => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_RICK_API_URL}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RICK_API_URL}/episode`, {
+        next: {revalidate: 60}
+    })
     return await res.json()
 }
 
 export default async function Episodes() {
     const {results} = await getEpisodes()
+
+    if (!results) {
+        return notFound()
+    }
 
     const episodesList = results.map(episode => (
         <Card key={episode.id} name={episode.name}/>
